@@ -1,0 +1,56 @@
+from fastapi import APIRouter, HTTPException
+from typing import Dict, Any, List
+import re
+from youtube_transcript_api import YouTubeTranscriptApi, CouldNotRetrieveTranscript
+
+router = APIRouter()
+
+def get_video_id(url: str) -> str:
+    patterns = [
+        r'(?:v=|\/)([0-9A-Za-z_-]{11}).*',
+        r'(?:youtu\.be\/)([0-9A-Za-z_-]{11})',
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, url)
+        if match:
+            return match.group(1)
+    raise HTTPException(status_code=400, detail="Invalid YouTube URL")
+
+def get_transcript(video_id: str) -> str:
+    try:
+        transcript = YouTubeTranscriptApi.get_transcript(video_id)
+        return " ".join(item["text"] for item in transcript)
+    except CouldNotRetrieveTranscript:
+        raise HTTPException(status_code=400, detail="Could not retrieve transcript")
+
+@router.post("/generate")
+async def generate_news(url: Dict[str, str]) -> Dict[str, Any]:
+    video_id = get_video_id(url["url"])
+    transcript = get_transcript(video_id)
+    
+    # For now, return a simple response for testing
+    return {
+        "title": "Sample News Title",
+        "summaryPoints": [
+            "This is a sample summary point 1",
+            "This is a sample summary point 2",
+            "This is a sample summary point 3"
+        ],
+        "youtubeUrl": url["url"]
+    }
+
+@router.get("/")
+async def get_all_news() -> List[Dict[str, Any]]:
+    return [
+        {
+            "title": "Sample News 1",
+            "summaryPoints": ["Point 1", "Point 2", "Point 3"],
+            "youtubeUrl": "https://www.youtube.com/watch?v=sample1"
+        },
+        {
+            "title": "Sample News 2",
+            "summaryPoints": ["Point A", "Point B", "Point C"],
+            "youtubeUrl": "https://www.youtube.com/watch?v=sample2"
+        }
+    ]
+    ]

@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Add News</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #FF9933 0%, #138808 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .form-container {
+            padding: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .form-group small {
+            display: block;
+            margin-top: 5px;
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        .points-group {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+
+        .points-group label {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: #f1f3f5;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #e9ecef;
+        }
+
+        .output {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            display: none;
+        }
+
+        .output.show {
+            display: block;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 4px solid #28a745;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .instructions {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 5px;
+        }
+
+        .instructions h3 {
+            color: #1976D2;
+            margin-bottom: 10px;
+        }
+
+        .instructions ol {
+            margin-left: 20px;
+            color: #333;
+        }
+
+        .instructions li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎬 Admin Panel</h1>
+            <p>Add News to Unbiased Hindustani</p>
+        </div>
+
+        <div class="form-container">
+            <div class="instructions">
+                <h3>📝 How to Use (Super Easy!):</h3>
+                <ol>
+                    <li>Fill in all the fields below</li>
+                    <li>Click "Add News (Auto Save)" button</li>
+                    <li>Refresh your website - That's it! ✅</li>
+                </ol>
+                <p style="margin-top: 10px; color: #666;">
+                    <strong>Note:</strong> No manual copying needed! Everything is automatic.
+                </p>
+            </div>
+
+            <form id="newsForm">
+                <div class="form-group">
+                    <label for="newsId">News ID *</label>
+                    <input type="number" id="newsId" required placeholder="Enter unique ID (e.g., 2, 3, 4...)">
+                    <small>Use a unique number for each news item</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="newsTitle">News Title *</label>
+                    <input type="text" id="newsTitle" required placeholder="e.g., PM Modi's Independence Day Speech">
+                    <small>Enter the headline of your news</small>
+                </div>
+
+                <div class="points-group">
+                    <label>Summary Points (5 points required) *</label>
+                    <div class="form-group">
+                        <input type="text" id="point1" required placeholder="Point 1">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="point2" required placeholder="Point 2">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="point3" required placeholder="Point 3">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="point4" required placeholder="Point 4">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="point5" required placeholder="Point 5">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="youtubeUrl">YouTube Video URL *</label>
+                    <input type="url" id="youtubeUrl" required placeholder="https://www.youtube.com/watch?v=...">
+                    <small>Paste the full YouTube video URL (any format works)</small>
+                    <button type="button" onclick="autoGenerateContent()" class="btn" style="margin-top: 10px; background: linear-gradient(135deg, #FF9933 0%, #138808 100%); color: white; padding: 10px 20px; border-radius: 8px; cursor: pointer; border: none; font-weight: 600;">
+                        🤖 Auto-Generate from Video (AI)
+                    </button>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="btn btn-primary">✨ Add News (Auto Save)</button>
+                    <button type="reset" class="btn btn-secondary">🔄 Clear Form</button>
+                    <button type="button" onclick="clearAllNews()" class="btn btn-secondary" style="background: #dc3545; color: white;">🗑️ Clear All News</button>
+                </div>
+            </form>
+
+            <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin-top: 20px; border-radius: 5px;">
+                <h3 style="color: #856404; margin-bottom: 10px;">🗑️ Delete Individual News</h3>
+                <p style="color: #856404; margin-bottom: 10px;">Enter the News ID to delete (check your website for ID numbers)</p>
+                <input type="number" id="deleteNewsId" placeholder="Enter News ID" style="padding: 10px; width: 200px; border: 1px solid #ffc107; border-radius: 5px; margin-right: 10px;">
+                <button type="button" onclick="deleteNewsById()" style="background: #dc3545; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: 600;">🗑️ Delete This News</button>
+            </div>
+
+            <div class="success-message" id="successMessage">
+                ✅ News added successfully! Refresh your website to see changes.
+            </div>
+
+            <div id="newsCount" style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin-top: 20px; border-radius: 5px; display: none;">
+                <strong>📊 Current News Items:</strong> <span id="countNumber">0</span>
+            </div>
+
+            <div class="output" id="output"></div>
+        </div>
+    </div>
+
+    <script>
+        // Store full content globally
+        let generatedFullContent = '';
+
+        async function autoGenerateContent() {
+            const youtubeUrl = document.getElementById('youtubeUrl').value;
+            const titleInput = document.getElementById('newsTitle');
+            
+            if (!youtubeUrl) {
+                alert('⚠️ Please enter a YouTube URL first!');
+                return;
+            }
+
+            // Show loading
+            const outputDiv = document.getElementById('output');
+            outputDiv.innerHTML = `
+<strong>🤖 Generating content with AI...</strong>
+<br><br>
+<span style="color: #4ec9b0;">Step 1:</span> Checking for video transcript...
+<br>
+<span style="color: #999;">Step 2:</span> If not available, using video metadata (title & description)...
+<br>
+<span style="color: #999;">Step 3:</span> AI analyzing content...
+<br><br>
+<em>This may take 10-30 seconds...</em>
+            `;
+            outputDiv.classList.add('show');
+
+            try {
+                const response = await fetch('/api/generate-summary', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ youtubeUrl })
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(result.error || 'Failed to generate content');
+                }
+
+                // Fill in the summary points
+                document.getElementById('point1').value = result.summaryPoints[0] || '';
+                document.getElementById('point2').value = result.summaryPoints[1] || '';
+                document.getElementById('point3').value = result.summaryPoints[2] || '';
+                document.getElementById('point4').value = result.summaryPoints[3] || '';
+                document.getElementById('point5').value = result.summaryPoints[4] || '';
+
+                // Store full content
+                generatedFullContent = result.fullContent || '';
+
+                // Suggest a title if empty
+                if (!titleInput.value && result.summaryPoints[0]) {
+                    titleInput.value = result.summaryPoints[0].substring(0, 80);
+                }
+
+                outputDiv.innerHTML = `
+<strong>✅ Content Generated Successfully!</strong>
+<br><br>
+<strong>📝 5 Key Points:</strong>
+<br>
+${result.summaryPoints.map((point, i) => `${i + 1}. ${point}`).join('<br>')}
+<br><br>
+<strong>📰 Full Content Preview:</strong>
+<br>
+${result.fullContent.substring(0, 200)}...
+<br><br>
+<span style="color: #4ec9b0;">Now click "Add News (Auto Save)" to save!</span>
+                `;
+                outputDiv.classList.add('show');
+
+            } catch (error) {
+                const errorMsg = error.message || 'Unknown error';
+                
+                // Check if it's an API key error
+                if (errorMsg.includes('GOOGLE_AI_API_KEY') || errorMsg.includes('API key')) {
+                    outputDiv.innerHTML = `
+<strong style="color: #f48771;">🔑 API KEY REQUIRED</strong>
+<br><br>
+<strong>The AI feature needs a Google AI API key to work.</strong>
+<br><br>
+<strong>✅ Quick Setup (5 minutes):</strong>
+<br><br>
+<strong>Step 1:</strong> Get FREE API key
+<br>
+→ Visit: <a href="https://makersuite.google.com/app/apikey" target="_blank" style="color: #4ec9b0; font-weight: bold;">https://makersuite.google.com/app/apikey</a>
+<br>
+→ Sign in with Google
+<br>
+→ Click "Create API Key"
+<br>
+→ Copy the key
+<br><br>
+<strong>Step 2:</strong> Add to your project
+<br>
+→ Open file: <code>.env.local</code> (in unbiased_hindustani folder)
+<br>
+→ Replace YOUR_API_KEY_HERE with your actual key
+<br>
+→ Save file
+<br><br>
+<strong>Step 3:</strong> Restart server
+<br>
+→ Press Ctrl+C in terminal
+<br>
+→ Run: <code>npm run dev</code>
+<br><br>
+<strong>Then AI will work! ✅</strong>
+<br><br>
+<em>For now, please fill in the points manually.</em>
+                    `;
+                } else {
+                    outputDiv.innerHTML = `
+<strong style="color: #f48771;">❌ Error:</strong> ${errorMsg}
+<br><br>
+<strong>💡 Why this happened:</strong>
+<br>
+• This video doesn't have captions/subtitles enabled
+<br>
+• AI needs video transcript to generate content
+<br>
+• About 40-60% of videos don't have transcripts
+<br><br>
+<strong>✅ What to do:</strong>
+<br>
+1. Fill in the 5 points manually (2 minutes)
+<br>
+2. Click "Add News (Auto Save)" button
+<br>
+3. Your news will be published perfectly!
+<br><br>
+<strong>💡 Tip:</strong> Try another video with captions, or use manual entry for this one.
+                    `;
+                }
+                outputDiv.classList.add('show');
+            }
+        }
+
+        document.getElementById('newsForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const newsId = document.getElementById('newsId').value;
+            const newsTitle = document.getElementById('newsTitle').value;
+            const point1 = document.getElementById('point1').value;
+            const point2 = document.getElementById('point2').value;
+            const point3 = document.getElementById('point3').value;
+            const point4 = document.getElementById('point4').value;
+            const point5 = document.getElementById('point5').value;
+            const youtubeUrl = document.getElementById('youtubeUrl').value;
+
+            const newsObject = {
+                id: parseInt(newsId),
+                title: newsTitle,
+                summaryPoints: [
+                    point1,
+                    point2,
+                    point3,
+                    point4,
+                    point5
+                ],
+                youtubeUrl: youtubeUrl,
+                fullContent: generatedFullContent || undefined
+            };
+
+            try {
+                // Get existing data from localStorage or fetch from admin-news.json
+                let data;
+                const savedData = localStorage.getItem('newsData');
+                
+                if (savedData) {
+                    // Use existing data from localStorage
+                    data = JSON.parse(savedData);
+                } else {
+                    // First time: fetch from admin-news.json
+                    const response = await fetch('/admin-news.json');
+                    data = await response.json();
+                }
+
+                // Add new news item to the array
+                data.newsItems.push(newsObject);
+
+                // Save to localStorage (since we can't directly save to file from browser)
+                localStorage.setItem('newsData', JSON.stringify(data));
+
+                // Show success message
+                const successMessage = document.getElementById('successMessage');
+                const outputDiv = document.getElementById('output');
+                
+                successMessage.innerHTML = `
+                    ✅ <strong>News Added Successfully!</strong><br>
+                    📌 News ID: ${newsId}<br>
+                    📰 Title: ${newsTitle}<br>
+                    📊 Total News Items: ${data.newsItems.length}<br><br>
+                    🔄 Please refresh your website at <a href="http://localhost:3001" target="_blank" style="color: #28a745; font-weight: bold;">http://localhost:3001</a> to see the changes!
+                `;
+                successMessage.classList.add('show');
+
+                // Show the JSON code for reference
+                const jsonString = JSON.stringify(newsObject, null, 2);
+                outputDiv.innerHTML = `
+<strong>✅ News Item Added!</strong>
+<br><br>
+<strong>📋 Added News:</strong>
+<br><br>
+${jsonString.replace(/</g, '&lt;').replace(/>/g, '&gt;')}
+<br><br>
+<strong>💾 Auto-saved to browser storage!</strong>
+<br><br>
+<span style="color: #4ec9b0;">Next Step: Refresh your website to see the news!</span>
+                `;
+                outputDiv.classList.add('show');
+
+                // Clear form
+                document.getElementById('newsForm').reset();
+                
+                // Reset generated content
+                generatedFullContent = '';
+
+                // Update news count
+                updateNewsCount();
+
+                // Scroll to success message
+                successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+            } catch (error) {
+                alert('❌ Error adding news. Please try again.');
+                console.error('Error:', error);
+            }
+        });
+
+        function copyToClipboard() {
+            navigator.clipboard.writeText(window.generatedJSON).then(() => {
+                alert('✅ Copied to clipboard! Now paste it in admin-news.json');
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+                prompt('Copy this code:', window.generatedJSON);
+            });
+        }
+
+        document.getElementById('newsForm').addEventListener('reset', function() {
+            document.getElementById('output').classList.remove('show');
+            document.getElementById('successMessage').classList.remove('show');
+        });
+
+        // Load news data from localStorage on page load
+        window.addEventListener('load', function() {
+            updateNewsCount();
+        });
+
+        function updateNewsCount() {
+            const savedData = localStorage.getItem('newsData');
+            const newsCountDiv = document.getElementById('newsCount');
+            const countNumber = document.getElementById('countNumber');
+            
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                const count = data.newsItems ? data.newsItems.length : 0;
+                countNumber.textContent = count;
+                newsCountDiv.style.display = 'block';
+                console.log('News data loaded from storage, total items:', count);
+            } else {
+                newsCountDiv.style.display = 'none';
+            }
+        }
+
+        function clearAllNews() {
+            if (confirm('⚠️ Are you sure you want to delete ALL news items? This cannot be undone!')) {
+                localStorage.removeItem('newsData');
+                alert('✅ All news items cleared! Refresh your website to see the changes.');
+                updateNewsCount();
+                document.getElementById('output').classList.remove('show');
+                document.getElementById('successMessage').classList.remove('show');
+            }
+        }
+
+        function deleteNewsById() {
+            const deleteId = parseInt(document.getElementById('deleteNewsId').value);
+            
+            if (!deleteId) {
+                alert('⚠️ Please enter a valid News ID!');
+                return;
+            }
+
+            const savedData = localStorage.getItem('newsData');
+            if (!savedData) {
+                alert('❌ No news data found in localStorage!');
+                return;
+            }
+
+            try {
+                const data = JSON.parse(savedData);
+                const originalLength = data.newsItems.length;
+                
+                // Filter out the news item with the specified ID
+                data.newsItems = data.newsItems.filter(item => item.id !== deleteId);
+                
+                if (data.newsItems.length === originalLength) {
+                    alert(`❌ No news item found with ID: ${deleteId}`);
+                    return;
+                }
+
+                // Save back to localStorage
+                localStorage.setItem('newsData', JSON.stringify(data));
+                alert(`✅ News item with ID ${deleteId} deleted! Refresh your website to see the changes.`);
+                document.getElementById('deleteNewsId').value = '';
+                updateNewsCount();
+            } catch (error) {
+                alert('❌ Error deleting news item: ' + error.message);
+            }
+        }
+    </script>
+</body>
+</html>

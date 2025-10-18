@@ -1,0 +1,32 @@
+{
+  "instructions": "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+  "howToUse": "📝 EDIT THIS FILE IN VS CODE TO ADD/REMOVE NEWS",
+  "steps": [
+    "1️⃣ Copy the template below",
+    "2️⃣ Change the id (use 2, 3, 4, 5, etc.)",
+    "3️⃣ Change the title to your news headline",
+    "4️⃣ Change the 5 summary points",
+    "5️⃣ Paste your YouTube URL",
+    "6️⃣ Add a comma (,) after the previous news item",
+    "7️⃣ Paste your news before the closing ]",
+    "8️⃣ Save file (Ctrl+S)",
+    "9️⃣ Refresh browser - Done! ✅"
+  ],
+  "instructions2": "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+  "template": "👇 COPY THIS TEMPLATE TO ADD NEW NEWS 👇",
+  "copyThis": {
+    "id": 999,
+    "title": "📰 Your News Title Here (Change This)",
+    "summaryPoints": [
+      "✏️ Point 1 - Change this to your first point",
+      "✏️ Point 2 - Change this to your second point",
+      "✏️ Point 3 - Change this to your third point",
+      "✏️ Point 4 - Change this to your fourth point",
+      "✏️ Point 5 - Change this to your fifth point"
+    ],
+    "youtubeUrl": "👉 PASTE YOUR YOUTUBE URL HERE 👈"
+  },
+  "instructions3": "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+  "yourNewsItemsStartHere": "👇 ADD YOUR NEWS ITEMS BELOW 👇",
+  "newsItems": []
+}
