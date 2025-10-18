@@ -1,8 +1,22 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Unbiased Hindustani
 
-## Getting Started
+**Your Source for Balanced Political News**
 
-First, run the development server:
+A modern news website built with Next.js, featuring AI-powered content generation and YouTube video integration with an Indian flag-themed design.
+
+## ✨ Features
+
+- 🇮🇳 **Indian Flag Theme** - Beautiful gradient design with saffron, white, and green colors
+- 🤖 **AI-Powered** - Auto-generate news summaries using Google Gemini AI
+- 📺 **YouTube Integration** - Automatic thumbnail fetching and video embedding
+- 📝 **Admin Panel** - Easy-to-use interface for managing news content
+- 📱 **Responsive Design** - Works seamlessly on all devices
+- 🌙 **Dark Theme** - Modern dark interface with excellent readability
+- ⚡ **Real-time Updates** - localStorage-based data management
+
+## 🚀 Getting Started
+
+First, install dependencies:
 
 ```bash
 npm run dev
@@ -20,17 +34,75 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+## 🚀 Getting Started
 
-To learn more about Next.js, take a look at the following resources:
+First, install dependencies:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm install
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Then, run the development server:
 
-## Deploy on Vercel
+```bash
+npm run dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the website.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🔑 API Configuration
+
+Create a `.env.local` file in the root directory:
+
+```env
+GOOGLE_AI_API_KEY=your_google_ai_api_key_here
+```
+
+Get your free API key from [Google AI Studio](https://aistudio.google.com/app/apikey)
+
+## 📂 Project Structure
+
+```
+├── src/
+│   ├── app/              # Next.js app directory
+│   │   ├── page.tsx      # Homepage
+│   │   └── api/          # API routes
+│   └── components/       # React components
+├── public/
+│   ├── admin-panel.html  # Admin interface
+│   └── admin-news.json   # News data storage
+└── backend/              # Python backend (optional)
+```
+
+## 🛠️ Tech Stack
+
+- **Framework:** Next.js 15.5.6
+- **Language:** TypeScript
+- **Styling:** TailwindCSS
+- **AI:** Google Gemini AI
+- **Video:** YouTube API & Transcript API
+
+## 📝 Usage
+
+### Adding News
+1. Navigate to `/admin-panel.html`
+2. Enter YouTube video URL
+3. Click "Auto Generate with AI"
+4. Review and publish
+
+### Features
+- **Auto-Generate:** AI creates title, summary, and key points
+- **Dual Technology:** Transcript-based or metadata-based generation
+- **Expandable Content:** "Read More" sections for detailed information
+
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to open issues or submit pull requests.
+
+## 📄 License
+
+This project is open source and available under the MIT License.
+
+---
+
+Made with ❤️ for unbiased news reporting
