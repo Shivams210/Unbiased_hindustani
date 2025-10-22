@@ -2,21 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 255, 255, 255;
+@layer base {
+  body {
+    @apply bg-gray-900 text-gray-100 antialiased;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: #1a1a1a;
   min-height: 100vh;
-  font-family: 'Arial', sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   position: relative;
   overflow-x: hidden;
 }
 
-/* Indian Flag Background */
+/* Subtle gradient overlay */
 body::before {
   content: '';
   position: fixed;
@@ -25,42 +28,52 @@ body::before {
   right: 0;
   bottom: 0;
   background: 
-    linear-gradient(
-      180deg,
-      rgba(255, 153, 51, 0.3) 0%,        /* Saffron */
-      rgba(255, 153, 51, 0.3) 33.33%,    /* Saffron */
-      rgba(255, 255, 255, 0.2) 33.33%,    /* White */
-      rgba(255, 255, 255, 0.2) 66.66%,    /* White */
-      rgba(19, 136, 8, 0.3) 66.66%,    /* Green */
-      rgba(19, 136, 8, 0.3) 100%       /* Green */
+    radial-gradient(
+      circle at 20% 50%,
+      rgba(255, 153, 51, 0.05) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 50%,
+      rgba(19, 136, 8, 0.05) 0%,
+      transparent 50%
     );
-  z-index: -2;
-  mix-blend-mode: overlay;
-}
-
-/* Chakra */
-body::after {
-  content: '';
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 200px;
-  height: 200px;
-  background: url('/chakra.svg') center/contain no-repeat;
-  opacity: 0.3;
-  pointer-events: none;
   z-index: -1;
-  animation: spin 60s linear infinite;
+  pointer-events: none;
 }
 
-@keyframes spin {
+/* Smooth animations */
+@keyframes fadeIn {
   from {
-    transform: translate(-50%, -50%) rotate(0deg);
+    opacity: 0;
+    transform: translateY(20px);
   }
   to {
-    transform: translate(-50%, -50%) rotate(360deg);
+    opacity: 1;
+    transform: translateY(0);
   }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #FF9933, #138808);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ff8c1a, #0f6b06);
 }
 
 /* Custom styles for the news grid */

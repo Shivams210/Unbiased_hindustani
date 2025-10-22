@@ -105,14 +105,14 @@ function NewsCard({ id, title, summaryPoints, youtubeUrl, fullContent }: NewsCar
   };
 
   return (
-    <div className="news-card bg-white/10 backdrop-blur-md rounded-xl shadow-lg overflow-hidden border border-white/10 hover:border-white/30 transition-all">
+    <div className="group bg-gradient-to-br from-gray-800/90 to-gray-900/90 backdrop-blur-sm rounded-2xl shadow-xl overflow-hidden border border-gray-700/50 hover:border-orange-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-orange-500/10">
       <div className="p-6">
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-xs font-semibold px-3 py-1 rounded-full bg-orange-500/20 text-orange-300 border border-orange-500/30">
-            ID: {id}
+        <div className="flex items-center justify-between mb-3">
+          <span className="text-xs font-bold px-3 py-1.5 rounded-full bg-gradient-to-r from-orange-500/20 to-green-600/20 text-orange-300 border border-orange-500/40">
+            #{id}
           </span>
         </div>
-        <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-orange-500/90 via-white/90 to-green-600/90 bg-clip-text text-transparent drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] hover:scale-[1.02] transform transition-all">
+        <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-orange-400 via-white to-green-500 bg-clip-text text-transparent hover:scale-[1.02] transform transition-all">
           {title}
         </h2>
 
