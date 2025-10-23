@@ -118,7 +118,7 @@ ${videoMetadata.description ? `Description: ${videoMetadata.description}` : ''}
 Generate:
 1. A catchy NEWS TITLE (maximum 10-12 words, engaging and professional)
 2. EXACTLY 5 key summary points about this video topic (each point should be concise, one line, maximum 15 words)
-3. A comprehensive "Read More" section with 3-4 detailed paragraphs explaining the topic in depth
+3. A COMPREHENSIVE BRIEF (20-30 lines) that provides a detailed overview of the entire video content - covering all major points, arguments, and context even if it's a 2-hour video
 
 Since the transcript is not available, use your knowledge about this topic (based on the title and description) to create informative, neutral, and factual content.
 
@@ -126,10 +126,10 @@ Please respond in the following JSON format:
 {
   "title": "Your Generated News Title Here",
   "summaryPoints": ["Point 1", "Point 2", "Point 3", "Point 4", "Point 5"],
-  "fullContent": "Detailed paragraph 1...\\n\\nDetailed paragraph 2...\\n\\nDetailed paragraph 3..."
+  "fullContent": "Comprehensive 20-30 line brief covering the entire video content in detail...\\n\\nContinue with more details...\\n\\nProvide thorough analysis and context..."
 }
 
-Important: Keep the tone neutral and unbiased. Focus on facts. Each summary point should be a complete statement.`;
+Important: Keep the tone neutral and unbiased. Focus on facts. The fullContent should be extensive (20-30 lines minimum) to cover all aspects of the video.`;
     } else {
       // Generate content from transcript
       prompt = `You are a political news analyst for "Unbiased Hindustani" - a platform that provides balanced political news coverage in India.
@@ -137,17 +137,19 @@ Important: Keep the tone neutral and unbiased. Focus on facts. Each summary poin
 Based on the following video transcript, generate:
 1. A catchy NEWS TITLE (maximum 10-12 words, engaging and professional)
 2. EXACTLY 5 key summary points (each point should be concise, one line, maximum 15 words)
-3. A comprehensive "Read More" section with 3-4 detailed paragraphs explaining the full context
+3. A COMPREHENSIVE BRIEF (20-30 lines) that provides a detailed overview of the ENTIRE video content - covering all major points, arguments, context, and key discussions even if it's a 2-hour video
 
 Video Transcript:
-${transcript.substring(0, 5000)}
+${transcript.substring(0, 8000)}
 
 Please respond in the following JSON format:
 {
   "title": "Your Generated News Title Here",
   "summaryPoints": ["Point 1", "Point 2", "Point 3", "Point 4", "Point 5"],
-  "fullContent": "Detailed paragraph 1...\\n\\nDetailed paragraph 2...\\n\\nDetailed paragraph 3..."
+  "fullContent": "Comprehensive 20-30 line brief covering the entire video content in detail...\\n\\nContinue with more details covering all major discussions...\\n\\nProvide thorough analysis, context, and key arguments presented..."
 }
+
+Important: Keep the tone neutral and unbiased. The fullContent should be extensive (20-30 lines minimum) and cover ALL aspects of the video comprehensively.`;
 
 Important: Keep the tone neutral and unbiased. Focus on facts. Each summary point should be a complete statement.`;
     }
