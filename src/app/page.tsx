@@ -70,12 +70,6 @@ export default function Home() {
               >
                 Explore News
               </a>
-              <a 
-                href="/admin-panel.html" 
-                className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-lg border border-white/20 hover:bg-white/20 transition-all duration-300"
-              >
-                Contribute News
-              </a>
             </div>
           </div>
         </div>
@@ -173,14 +167,8 @@ export default function Home() {
             <div className="text-6xl mb-6">📰</div>
             <h3 className="text-3xl font-bold text-white mb-4">No News Published Yet</h3>
             <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
-              Be the first to contribute! Add breaking news and political analysis through our admin panel.
+              Check back soon for the latest political news and analysis.
             </p>
-            <a 
-              href="/admin-panel.html" 
-              className="inline-block px-8 py-4 bg-gradient-to-r from-[#FF9933] to-[#138808] text-white font-semibold rounded-lg hover:shadow-2xl hover:scale-105 transition-all duration-300"
-            >
-              Contribute News →
-            </a>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -207,12 +195,6 @@ export default function Home() {
             >
               Start Reading
             </a>
-            <a 
-              href="/admin-panel.html" 
-              className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-lg border border-white/20 hover:bg-white/20 transition-all duration-300"
-            >
-              Contribute News
-            </a>
           </div>
         </div>
       </section>
@@ -236,7 +218,6 @@ export default function Home() {
               <h4 className="text-white font-semibold mb-4">Quick Links</h4>
               <ul className="space-y-2">
                 <li><a href="#news" className="text-gray-400 hover:text-orange-500 transition">Latest News</a></li>
-                <li><a href="/admin-panel.html" className="text-gray-400 hover:text-orange-500 transition">Contribute</a></li>
                 <li><a href="#" className="text-gray-400 hover:text-orange-500 transition">About Us</a></li>
               </ul>
             </div>
