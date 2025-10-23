@@ -11,7 +11,7 @@ interface NewsCardProps {
 }
 
 function NewsCard({ id, title, summaryPoints, youtubeUrl, fullContent }: NewsCardProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
 
   // Function to validate and transform YouTube URL
   const getVideoUrl = (url: string) => {
@@ -167,15 +167,9 @@ function NewsCard({ id, title, summaryPoints, youtubeUrl, fullContent }: NewsCar
 
         {fullContent && (
           <>
-            <button
-              onClick={() => setIsExpanded(!isExpanded)}
-              className="mt-4 text-blue-400 hover:text-blue-300 text-sm font-medium"
-            >
-              {isExpanded ? 'Show Less ▲' : 'Read More ▼'}
-            </button>
-            
             {isExpanded && (
               <div className="mt-4 pt-4 border-t border-white/10">
+                <h3 className="text-lg font-bold text-orange-400 mb-3">Full Brief</h3>
                 <div className="text-gray-300 leading-relaxed space-y-3">
                   {fullContent.split('\n\n').map((paragraph, index) => (
                     <p key={index} className="text-sm">{paragraph}</p>
@@ -183,6 +177,13 @@ function NewsCard({ id, title, summaryPoints, youtubeUrl, fullContent }: NewsCar
                 </div>
               </div>
             )}
+            
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="mt-4 text-blue-400 hover:text-blue-300 text-sm font-medium transition-colors"
+            >
+              {isExpanded ? 'Hide Full Brief ▲' : 'Show Full Brief ▼'}
+            </button>
           </>
         )}
 
