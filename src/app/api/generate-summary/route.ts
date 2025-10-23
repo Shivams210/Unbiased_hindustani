@@ -95,11 +95,11 @@ export async function POST(request: NextRequest) {
 
     // Check for API keys - support both OpenAI and Google AI
     const openaiKey = process.env.OPENAI_API_KEY;
-    const googleKey = process.env.GOOGLE_AI_API_KEY;
+    const googleKey = process.env.GOOGLE_AI_API_KEY || process.env.GEMINI_API_KEY;
     
     if (!openaiKey && !googleKey) {
       return NextResponse.json({ 
-        error: 'Please set OPENAI_API_KEY or GOOGLE_AI_API_KEY in your .env.local file. For OpenAI: https://platform.openai.com/api-keys or for Google AI: https://makersuite.google.com/app/apikey' 
+        error: 'Please set OPENAI_API_KEY, GOOGLE_AI_API_KEY, or GEMINI_API_KEY in your .env.local file. For Google AI: https://makersuite.google.com/app/apikey' 
       }, { status: 500 });
     }
 
