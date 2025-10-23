@@ -116,13 +116,15 @@ Channel: ${videoMetadata.channelTitle}
 ${videoMetadata.description ? `Description: ${videoMetadata.description}` : ''}
 
 Generate:
-1. EXACTLY 5 key summary points about this video topic (each point should be concise, one line, maximum 15 words)
-2. A comprehensive "Read More" section with 3-4 detailed paragraphs explaining the topic in depth
+1. A catchy NEWS TITLE (maximum 10-12 words, engaging and professional)
+2. EXACTLY 5 key summary points about this video topic (each point should be concise, one line, maximum 15 words)
+3. A comprehensive "Read More" section with 3-4 detailed paragraphs explaining the topic in depth
 
 Since the transcript is not available, use your knowledge about this topic (based on the title and description) to create informative, neutral, and factual content.
 
 Please respond in the following JSON format:
 {
+  "title": "Your Generated News Title Here",
   "summaryPoints": ["Point 1", "Point 2", "Point 3", "Point 4", "Point 5"],
   "fullContent": "Detailed paragraph 1...\\n\\nDetailed paragraph 2...\\n\\nDetailed paragraph 3..."
 }
@@ -133,14 +135,16 @@ Important: Keep the tone neutral and unbiased. Focus on facts. Each summary poin
       prompt = `You are a political news analyst for "Unbiased Hindustani" - a platform that provides balanced political news coverage in India.
 
 Based on the following video transcript, generate:
-1. EXACTLY 5 key summary points (each point should be concise, one line, maximum 15 words)
-2. A comprehensive "Read More" section with 3-4 detailed paragraphs explaining the full context
+1. A catchy NEWS TITLE (maximum 10-12 words, engaging and professional)
+2. EXACTLY 5 key summary points (each point should be concise, one line, maximum 15 words)
+3. A comprehensive "Read More" section with 3-4 detailed paragraphs explaining the full context
 
 Video Transcript:
 ${transcript.substring(0, 5000)}
 
 Please respond in the following JSON format:
 {
+  "title": "Your Generated News Title Here",
   "summaryPoints": ["Point 1", "Point 2", "Point 3", "Point 4", "Point 5"],
   "fullContent": "Detailed paragraph 1...\\n\\nDetailed paragraph 2...\\n\\nDetailed paragraph 3..."
 }
@@ -215,6 +219,7 @@ Important: Keep the tone neutral and unbiased. Focus on facts. Each summary poin
 
     return NextResponse.json({
       success: true,
+      title: parsedResponse.title || videoMetadata.title || 'Untitled News',
       summaryPoints: parsedResponse.summaryPoints,
       fullContent: parsedResponse.fullContent || 'No detailed content available.'
     });

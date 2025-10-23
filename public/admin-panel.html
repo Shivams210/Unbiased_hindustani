@@ -337,13 +337,18 @@
                 // Store full content
                 generatedFullContent = result.fullContent || '';
 
-                // Suggest a title if empty
-                if (!titleInput.value && result.summaryPoints[0]) {
+                // Fill in the AI-generated title
+                if (result.title) {
+                    titleInput.value = result.title;
+                } else if (!titleInput.value && result.summaryPoints[0]) {
+                    // Fallback: use first summary point as title if AI didn't generate one
                     titleInput.value = result.summaryPoints[0].substring(0, 80);
                 }
 
                 outputDiv.innerHTML = `
 <strong>✅ Content Generated Successfully!</strong>
+<br><br>
+<strong>📰 Generated Title:</strong> ${result.title || 'No title generated'}
 <br><br>
 <strong>📝 5 Key Points:</strong>
 <br>
