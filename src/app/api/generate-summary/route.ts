@@ -166,13 +166,10 @@ Important: Keep the tone neutral and unbiased. Focus on facts. Each summary poin
       
       text = completion.choices[0].message.content || '';
     } else if (googleKey) {
-      // Use Google Gemini AI with v1 API
+      // Use Google Gemini AI
       const genAI = new GoogleGenerativeAI(googleKey);
       const model = genAI.getGenerativeModel({ 
-        model: 'gemini-pro',
-        generationConfig: {
-          temperature: 0.7,
-        }
+        model: 'gemini-1.5-pro-latest',
       });
       
       const result = await model.generateContent(prompt);
