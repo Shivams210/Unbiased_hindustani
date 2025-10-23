@@ -107,51 +107,35 @@ export async function POST(request: NextRequest) {
     
     if (useMetadataFallback) {
       // Generate content from video metadata (title, description, channel)
-      prompt = `You are a political news analyst for "Unbiased Hindustani" - a platform that provides balanced political news coverage in India.
+      prompt = `Political news analyst for "Unbiased Hindustani". Generate balanced Indian political news.
 
-Based on the following YouTube video information, generate professional news content:
-
-Video Title: ${videoMetadata.title}
+Video: ${videoMetadata.title}
 Channel: ${videoMetadata.channelTitle}
-${videoMetadata.description ? `Description: ${videoMetadata.description}` : ''}
+${videoMetadata.description ? `Description: ${videoMetadata.description.substring(0, 500)}` : ''}
 
-Generate:
-1. A catchy NEWS TITLE (maximum 10-12 words, engaging and professional)
-2. EXACTLY 5 key summary points about this video topic (each point should be concise, one line, maximum 15 words)
-3. A COMPREHENSIVE BRIEF (20-30 lines) that provides a detailed overview of the entire video content - covering all major points, arguments, and context even if it's a 2-hour video
-
-Since the transcript is not available, use your knowledge about this topic (based on the title and description) to create informative, neutral, and factual content.
-
-Please respond in the following JSON format:
+Generate JSON:
 {
-  "title": "Your Generated News Title Here",
-  "summaryPoints": ["Point 1", "Point 2", "Point 3", "Point 4", "Point 5"],
-  "fullContent": "Comprehensive 20-30 line brief covering the entire video content in detail...\\n\\nContinue with more details...\\n\\nProvide thorough analysis and context..."
+  "title": "Catchy news title (10-12 words)",
+  "summaryPoints": ["5 concise points", "max 15 words each", "complete statements", "factual and neutral", "key highlights"],
+  "fullContent": "Detailed brief in 15-20 lines covering main points, context, and analysis in depth"
 }
 
-Important: Keep the tone neutral and unbiased. Focus on facts. The fullContent should be extensive (20-30 lines minimum) to cover all aspects of the video.`;
+Keep neutral, factual tone.`;
     } else {
       // Generate content from transcript
-      prompt = `You are a political news analyst for "Unbiased Hindustani" - a platform that provides balanced political news coverage in India.
+      prompt = `Political news analyst for "Unbiased Hindustani". Analyze video transcript and generate balanced news.
 
-Based on the following video transcript, generate:
-1. A catchy NEWS TITLE (maximum 10-12 words, engaging and professional)
-2. EXACTLY 5 key summary points (each point should be concise, one line, maximum 15 words)
-3. A COMPREHENSIVE BRIEF (20-30 lines) that provides a detailed overview of the ENTIRE video content - covering all major points, arguments, context, and key discussions even if it's a 2-hour video
+Transcript:
+${transcript.substring(0, 6000)}
 
-Video Transcript:
-${transcript.substring(0, 8000)}
-
-Please respond in the following JSON format:
+Generate JSON:
 {
-  "title": "Your Generated News Title Here",
-  "summaryPoints": ["Point 1", "Point 2", "Point 3", "Point 4", "Point 5"],
-  "fullContent": "Comprehensive 20-30 line brief covering the entire video content in detail...\\n\\nContinue with more details covering all major discussions...\\n\\nProvide thorough analysis, context, and key arguments presented..."
+  "title": "News title (10-12 words)",
+  "summaryPoints": ["5 key points", "each 15 words max", "concise statements", "factual coverage", "main highlights"],
+  "fullContent": "Comprehensive 15-20 line analysis covering all major points, arguments, context, and key discussions from the entire video"
 }
 
-Important: Keep the tone neutral and unbiased. The fullContent should be extensive (20-30 lines minimum) and cover ALL aspects of the video comprehensively.`;
-
-Important: Keep the tone neutral and unbiased. Focus on facts. Each summary point should be a complete statement.`;
+Keep neutral, factual.`;
     }
 
     // Generate content using available AI service
@@ -190,8 +174,20 @@ Important: Keep the tone neutral and unbiased. Focus on facts. Each summary poin
       });
       
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(`Gemini API error: ${JSON.stringify(errorData)}`);
+        const errorText = await response.text();
+        console.error('Gemini API error:', errorText);
+        
+        // Check if it's an HTML error page
+        if (errorText.startsWith('<!DOCTYPE') || errorText.startsWith('<html')) {
+          throw new Error('API returned HTML error page. Video may not have sufficient metadata.');
+        }
+        
+        try {
+          const errorData = JSON.parse(errorText);
+          throw new Error(`Gemini API error: ${JSON.stringify(errorData)}`);
+        } catch {
+          throw new Error(`Gemini API error: ${response.status} - ${errorText.substring(0, 200)}`);
+        }
       }
       
       const data = await response.json();
