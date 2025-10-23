@@ -22,7 +22,8 @@ export default function ArticlePage({ params }: { params: { id: string } }) {
         // Try localStorage first
         const newsData = localStorage.getItem('newsData');
         if (newsData) {
-          const allNews: NewsArticle[] = JSON.parse(newsData);
+          const data = JSON.parse(newsData);
+          const allNews: NewsArticle[] = data.newsItems || data || [];
           const foundArticle = allNews.find((news) => news.id === parseInt(params.id));
           if (foundArticle) {
             setArticle(foundArticle);
@@ -34,8 +35,9 @@ export default function ArticlePage({ params }: { params: { id: string } }) {
         // Fallback to admin-news.json
         fetch('/admin-news.json')
           .then((res) => res.json())
-          .then((data: NewsArticle[]) => {
-            const foundArticle = data.find((news) => news.id === parseInt(params.id));
+          .then((data) => {
+            const allNews: NewsArticle[] = data.newsItems || data || [];
+            const foundArticle = allNews.find((news) => news.id === parseInt(params.id));
             if (foundArticle) {
               setArticle(foundArticle);
             }
