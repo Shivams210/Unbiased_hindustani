@@ -166,15 +166,30 @@ Important: Keep the tone neutral and unbiased. Focus on facts. Each summary poin
       
       text = completion.choices[0].message.content || '';
     } else if (googleKey) {
-      // Use Google Gemini AI
-      const genAI = new GoogleGenerativeAI(googleKey);
-      const model = genAI.getGenerativeModel({ 
-        model: 'gemini-1.5-pro-latest',
+      // Use Google Gemini AI with direct API call
+      const apiUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash-lite:generateContent?key=${googleKey}`;
+      
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          contents: [{
+            parts: [{
+              text: prompt
+            }]
+          }]
+        })
       });
       
-      const result = await model.generateContent(prompt);
-      const response = await result.response;
-      text = response.text();
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Gemini API error: ${JSON.stringify(errorData)}`);
+      }
+      
+      const data = await response.json();
+      text = data.candidates[0].content.parts[0].text;
     }
 
     // Parse the JSON response
