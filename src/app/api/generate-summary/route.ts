@@ -169,7 +169,7 @@ Important: Keep the tone neutral and unbiased. Focus on facts. Each summary poin
       // Use Google Gemini AI with v1 API
       const genAI = new GoogleGenerativeAI(googleKey);
       const model = genAI.getGenerativeModel({ 
-        model: 'gemini-1.5-flash',
+        model: 'gemini-pro',
         generationConfig: {
           temperature: 0.7,
         }
