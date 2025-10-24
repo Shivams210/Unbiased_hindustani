@@ -8,9 +8,10 @@ interface NewsCardProps {
   summaryPoints: string[];
   youtubeUrl: string;
   fullContent?: string;
+  linkPrefix?: string; // '/article' for news, '/podcast' for podcasts
 }
 
-function NewsCard({ id, title, summaryPoints, youtubeUrl, fullContent }: NewsCardProps) {
+function NewsCard({ id, title, summaryPoints, youtubeUrl, fullContent, linkPrefix = '/article' }: NewsCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   // Function to validate and transform YouTube URL
@@ -168,7 +169,7 @@ function NewsCard({ id, title, summaryPoints, youtubeUrl, fullContent }: NewsCar
         {fullContent && (
           <>
             <a
-              href={`/article/${id}`}
+              href={`${linkPrefix}/${id}`}
               className="mt-4 inline-block px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
             >
               Read Full Article →

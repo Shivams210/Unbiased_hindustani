@@ -70,6 +70,12 @@ export default function Home() {
               >
                 Explore News
               </a>
+              <a 
+                href="/podcasts" 
+                className="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg hover:shadow-2xl hover:scale-105 transition-all duration-300"
+              >
+                🎙️ Political Podcasts
+              </a>
             </div>
           </div>
         </div>

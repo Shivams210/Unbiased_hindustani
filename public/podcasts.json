@@ -1,0 +1,35 @@
+{
+  "instructions": "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+  "howToUse": "📝 EDIT THIS FILE TO ADD/REMOVE POLITICAL PODCASTS",
+  "steps": [
+    "1️⃣ Copy the template below",
+    "2️⃣ Change the id (use 2, 3, 4, 5, etc.)",
+    "3️⃣ Change the title and speaker name",
+    "4️⃣ Change the 5 summary points",
+    "5️⃣ Paste your YouTube podcast URL",
+    "6️⃣ Add a comma (,) after the previous podcast",
+    "7️⃣ Paste your podcast before the closing ]",
+    "8️⃣ Save file (Ctrl+S)",
+    "9️⃣ Refresh browser - Done! ✅"
+  ],
+  "instructions2": "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+  "template": "👇 COPY THIS TEMPLATE TO ADD NEW PODCAST 👇",
+  "copyThis": {
+    "id": 999,
+    "title": "📰 Your Podcast Title Here (Change This)",
+    "speaker": "Political Leader Name",
+    "date": "October 24, 2025",
+    "summaryPoints": [
+      "✏️ Point 1 - Change this to your first point",
+      "✏️ Point 2 - Change this to your second point",
+      "✏️ Point 3 - Change this to your third point",
+      "✏️ Point 4 - Change this to your fourth point",
+      "✏️ Point 5 - Change this to your fifth point"
+    ],
+    "youtubeUrl": "👉 PASTE YOUR YOUTUBE PODCAST URL HERE 👈",
+    "fullContent": "Optional: Add full summary text here (or leave empty)"
+  },
+  "instructions3": "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+  "yourPodcastsStartHere": "👇 ADD YOUR PODCAST SUMMARIES BELOW 👇",
+  "podcastItems": []
+}
