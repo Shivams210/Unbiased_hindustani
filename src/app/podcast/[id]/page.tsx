@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 
 interface PodcastItem {
   id: number;
@@ -13,10 +13,12 @@ interface PodcastItem {
   date?: string;
 }
 
-export default function PodcastDetailPage({ params }: { params: { id: string } }) {
+export default function PodcastDetailPage() {
+  const params = useParams();
   const [podcast, setPodcast] = useState<PodcastItem | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const podcastId = params?.id as string;
 
   useEffect(() => {
     const loadPodcast = () => {
@@ -26,7 +28,7 @@ export default function PodcastDetailPage({ params }: { params: { id: string } }
         if (podcastData) {
           const data = JSON.parse(podcastData);
           const allPodcasts: PodcastItem[] = data.podcastItems || data || [];
-          const foundPodcast = allPodcasts.find((p) => p.id === parseInt(params.id));
+          const foundPodcast = allPodcasts.find((p) => p.id === parseInt(podcastId));
           if (foundPodcast) {
             setPodcast(foundPodcast);
             setLoading(false);
@@ -39,7 +41,7 @@ export default function PodcastDetailPage({ params }: { params: { id: string } }
           .then((res) => res.json())
           .then((data) => {
             const allPodcasts: PodcastItem[] = data.podcastItems || data || [];
-            const foundPodcast = allPodcasts.find((p) => p.id === parseInt(params.id));
+            const foundPodcast = allPodcasts.find((p) => p.id === parseInt(podcastId));
             if (foundPodcast) {
               setPodcast(foundPodcast);
             }
@@ -56,7 +58,7 @@ export default function PodcastDetailPage({ params }: { params: { id: string } }
     };
 
     loadPodcast();
-  }, [params.id]);
+  }, [podcastId]);
 
   const getYouTubeThumbnail = (url: string) => {
     try {

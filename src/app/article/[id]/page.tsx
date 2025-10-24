@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 
 interface NewsArticle {
   id: number;
@@ -11,10 +11,12 @@ interface NewsArticle {
   fullContent?: string;
 }
 
-export default function ArticlePage({ params }: { params: { id: string } }) {
+export default function ArticlePage() {
+  const params = useParams();
   const [article, setArticle] = useState<NewsArticle | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const articleId = params?.id as string;
 
   useEffect(() => {
     const loadArticle = () => {
@@ -24,7 +26,7 @@ export default function ArticlePage({ params }: { params: { id: string } }) {
         if (newsData) {
           const data = JSON.parse(newsData);
           const allNews: NewsArticle[] = data.newsItems || data || [];
-          const foundArticle = allNews.find((news) => news.id === parseInt(params.id));
+          const foundArticle = allNews.find((news) => news.id === parseInt(articleId));
           if (foundArticle) {
             setArticle(foundArticle);
             setLoading(false);
@@ -37,7 +39,7 @@ export default function ArticlePage({ params }: { params: { id: string } }) {
           .then((res) => res.json())
           .then((data) => {
             const allNews: NewsArticle[] = data.newsItems || data || [];
-            const foundArticle = allNews.find((news) => news.id === parseInt(params.id));
+            const foundArticle = allNews.find((news) => news.id === parseInt(articleId));
             if (foundArticle) {
               setArticle(foundArticle);
             }
@@ -54,7 +56,7 @@ export default function ArticlePage({ params }: { params: { id: string } }) {
     };
 
     loadArticle();
-  }, [params.id]);
+  }, [articleId]);
 
   // Function to get YouTube thumbnail
   const getYouTubeThumbnail = (url: string) => {
